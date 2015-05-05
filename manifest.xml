@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<App uuid="20389709-67fd-43cd-8355-25c8e086832">
+   <Name>QR Code</Name>
+   <Author>Incomedia</Author>
+   <Version>3</Version>
+   <Category>Widgets</Category>
+   <Description l10n-id="general-description">Create and add a QR code into your site.</Description>
+   <ShowPreview>True</ShowPreview>
+   <Parameters>
+      <Tab>
+         <Label>Graphics</Label>
+         <Description l10n-id="description">Set the data of the QR Code. You will need an active internet connection to use this object.</Description>
+         <ShowPreview>True</ShowPreview>
+         <Fields>
+            <Field type="text" id="link">
+               <Label l10n-id="link">Link:</Label>
+               <UpdatesPreview>true</UpdatesPreview>
+               <DefaultValue>http://www.websitex5.com</DefaultValue>
+            </Field>
+            <Field type="number" id="size">
+               <Label l10n-id="size">Size:</Label>
+               <UpdatesPreview>true</UpdatesPreview>
+               <DefaultValue>200</DefaultValue>
+               <MinValue>10</MinValue>
+               <MaxValue>1000</MaxValue>
+            </Field>
+            <Field type="color" id="color">
+               <Label l10n-id="color">Color:</Label>
+               <DefaultValue>#000000</DefaultValue>
+               <UpdatesPreview>true</UpdatesPreview>
+            </Field>
+            <Field type="color" id="bgcolor">
+               <Label l10n-id="bgcolor">Background Color:</Label>
+               <DefaultValue>#FFFFFF</DefaultValue>
+               <UpdatesPreview>true</UpdatesPreview>
+            </Field>
+            <Field type="number" id="margin">
+               <Label l10n-id="margin">Margin:</Label>
+               <UpdatesPreview>true</UpdatesPreview>
+               <DefaultValue>1</DefaultValue>
+               <MinValue>0</MinValue>
+               <MaxValue>50</MaxValue>
+            </Field>
+         </Fields>
+      </Tab>
+   </Parameters>
+   <Hooks><![CDATA[
+      function GetHeight() {
+         return parameters.size.value;
+      }
+      function IsEmpty() {
+         return parameters.link.value.length == 0;
+      }
+   ]]></Hooks>
+   <Output><![CDATA[
+      <?wsx5
+         var link = parameters.link.value;
+         var size = parameters.size.width + "x" + parameters.size.height;
+         var color = parameters.color.valueR + "-" + parameters.color.valueG + "-" + parameters.color.valueB;
+         var bgcolor = parameters.bgcolor.valueR + "-" + parameters.bgcolor.valueG + "-" + parameters.bgcolor.valueB;
+         var margin = parameters.margin.value;
+      ?>
+      <img src="http://api.qrserver.com/v1/create-qr-code/?data=<?wsx5 document.write(link) ?>&size=<?wsx5 document.write(size) ?>&color=<?wsx5 document.write(color) ?>&bgcolor=<?wsx5 document.write(bgcolor) ?>&margin=<?wsx5 document.write(margin) ?>" style="width:<?wsx5 document.write(parameters.size.value) ?>px; height: <?wsx5 document.write(parameters.size.value) ?>px;" />
+   ]]></Output>
+</App>
